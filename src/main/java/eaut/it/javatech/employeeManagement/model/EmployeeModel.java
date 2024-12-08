@@ -10,7 +10,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EmployeeModel {
-	private Long id;
+	private Integer id;
 	private String fullName;
 	private String title;
 	private String email;
