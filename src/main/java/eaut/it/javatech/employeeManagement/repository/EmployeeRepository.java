@@ -27,7 +27,8 @@ public class EmployeeRepository {
 	}
 
 	public void addEmployee(EmployeeModel employee) {
-		employee.setId(lastId++);
+		lastId+=1;
+		employee.setId(lastId);
 		employees.add(employee);
 	}
 
