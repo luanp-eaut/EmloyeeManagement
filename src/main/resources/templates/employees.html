@@ -57,6 +57,8 @@
 					<td th:text="${employee.telephone}"></td>
 					<td><a class="btn btn-primary"
 						th:href="@{/employees/{employeeId}/edit(employeeId=${employee.id})}">Edit</a>
+						<a class="btn btn-danger"
+						th:href="@{/employees/{employeeId}/delete(employeeId=${employee.id})}">Delete</a>
 					</td>
 				</tr>
 			</tbody>

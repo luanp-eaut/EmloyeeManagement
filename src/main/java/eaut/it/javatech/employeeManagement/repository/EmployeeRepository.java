@@ -29,7 +29,6 @@ public class EmployeeRepository {
 	public void addEmployee(EmployeeModel employee) {
 		employee.setId(lastId++);
 		employees.add(employee);
-		System.out.println("lastId " + lastId);
 	}
 
 	public EmployeeModel findById(Integer employeeId) {
@@ -46,5 +45,10 @@ public class EmployeeRepository {
                 break; 
             }
         }
+	}
+
+	public void deleteById(Integer employeeId) {
+		EmployeeModel empl = findById(employeeId);
+		employees.remove(empl);
 	}
 }
