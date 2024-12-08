@@ -22,4 +22,13 @@ public class EmployeeService {
 	public void addEmployee(EmployeeModel employee) {
 		employeeRepository.addEmployee(employee);
 	}
+	
+	public EmployeeModel getEmployeeById(Integer employeeId) {
+		return employeeRepository.findById(employeeId);
+	}
+
+	public void updateEmployee(EmployeeModel employee) {
+		employeeRepository.save(employee);
+
+	}
 }

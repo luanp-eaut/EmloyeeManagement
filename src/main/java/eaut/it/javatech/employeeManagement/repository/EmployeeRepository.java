@@ -2,6 +2,7 @@ package eaut.it.javatech.employeeManagement.repository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
 
@@ -29,5 +30,21 @@ public class EmployeeRepository {
 		employee.setId(lastId++);
 		employees.add(employee);
 		System.out.println("lastId " + lastId);
+	}
+
+	public EmployeeModel findById(Integer employeeId) {
+		return employees.stream().filter(e -> e.getId() == employeeId).findAny().orElse(null);
+	}
+
+	public void save(EmployeeModel employee) {
+		for (EmployeeModel empl : employees) {
+            if (empl.getId() == employee.getId()) {
+                empl.setFullName(employee.getFullName()); 
+                empl.setTitle(employee.getTitle()); 
+                empl.setEmail(employee.getEmail()); 
+                empl.setTelephone(employee.getTelephone()); 
+                break; 
+            }
+        }
 	}
 }
