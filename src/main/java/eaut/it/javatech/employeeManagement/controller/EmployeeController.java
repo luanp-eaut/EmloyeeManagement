@@ -59,4 +59,11 @@ public class EmployeeController {
 		employeeService.deleteEmployee(employeeId);
 		return "redirect:/employees";
 	}
+	
+	@GetMapping("/employees/{employeeId}/view")
+	public String viewEmployee(@PathVariable("employeeId") Integer employeeId, Model model) {
+		EmployeeModel employee = employeeService.getEmployeeById(employeeId);
+		model.addAttribute("employee", employee);
+		return "view_employee";
+	}
 }
