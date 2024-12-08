@@ -10,16 +10,24 @@ import eaut.it.javatech.employeeManagement.model.EmployeeModel;
 @Repository
 public class EmployeeRepository {
 	private List<EmployeeModel> employees = new ArrayList<EmployeeModel>();
+	private Integer lastId;
 
 	public EmployeeRepository() {
 		employees.add(new EmployeeModel(1, "Nguyễn Văn An", "Giám đốc", "nvan@gmail.com", "0927624356"));
-		employees.add(new EmployeeModel(1, "Đặng Hoàng Yến", "Kế toán trưởng", "dhyen@hotmail.com", "0987825751"));
-		employees.add(new EmployeeModel(1, "Phan Đăng Toàn", "Lái xe", "pdtoan@gmail.com", "0337244781"));
-		employees.add(new EmployeeModel(1, "Trương Thị Huệ", "TP hành chính", "tthue@yahoo.com", "0903428316"));
-		employees.add(new EmployeeModel(1, "Trần Quang Tuấn", "Nhân viên", "tqtuan@hotmail.com", "0393844162"));
+		employees.add(new EmployeeModel(2, "Đặng Hoàng Yến", "Kế toán trưởng", "dhyen@hotmail.com", "0987825751"));
+		employees.add(new EmployeeModel(3, "Phan Đăng Toàn", "Lái xe", "pdtoan@gmail.com", "0337244781"));
+		employees.add(new EmployeeModel(4, "Trương Thị Huệ", "TP hành chính", "tthue@yahoo.com", "0903428316"));
+		employees.add(new EmployeeModel(5, "Trần Quang Tuấn", "Nhân viên", "tqtuan@hotmail.com", "0393844162"));
+		lastId = 5;
 	}
 
 	public List<EmployeeModel> getAllEmployees() {
 		return employees;
+	}
+
+	public void addEmployee(EmployeeModel employee) {
+		employee.setId(lastId++);
+		employees.add(employee);
+		System.out.println("lastId " + lastId);
 	}
 }

@@ -18,4 +18,8 @@ public class EmployeeService {
 	public List<EmployeeModel> getAllEmployees(){
 		return employeeRepository.getAllEmployees();
 	}
+	
+	public void addEmployee(EmployeeModel employee) {
+		employeeRepository.addEmployee(employee);
+	}
 }
