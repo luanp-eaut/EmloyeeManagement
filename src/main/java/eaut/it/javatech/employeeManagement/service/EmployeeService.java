@@ -6,6 +6,9 @@ import org.springframework.stereotype.Service;
 
 import eaut.it.javatech.employeeManagement.model.EmployeeModel;
 import eaut.it.javatech.employeeManagement.repository.EmployeeRepository;
+import entity.Employee;
+import jakarta.validation.Valid;
+import mapper.EmployeeMapper;
 
 @Service
 public class EmployeeService {
@@ -14,25 +17,30 @@ public class EmployeeService {
 	public EmployeeService(EmployeeRepository employeeRepository) {
 		this.employeeRepository = employeeRepository;
 	}
-	
-	public List<EmployeeModel> getAllEmployees(){
-		return employeeRepository.getAllEmployees();
-	}
-	
-	public void addEmployee(EmployeeModel employee) {
-		employeeRepository.addEmployee(employee);
-	}
-	
-	public EmployeeModel getEmployeeById(Integer employeeId) {
-		return employeeRepository.findById(employeeId);
+
+	public List<EmployeeModel> getAllEmployees() {
+		List<Employee> employees = employeeRepository.findAll();
+		List<EmployeeModel> employeeModels = employees.stream().map(EmployeeMapper::mapToEmployeeModel).toList();
+		return employeeModels;
 	}
 
-	public void updateEmployee(EmployeeModel employee) {
+	public void createEmployee(EmployeeModel employeeModel) {
+		Employee employee = EmployeeMapper.mapToEmployee(employeeModel);
 		employeeRepository.save(employee);
+	}
+
+	public EmployeeModel getEmployeeById(Integer employeeId) {
+		Employee employee = employeeRepository.findById(employeeId).get();
+		return EmployeeMapper.mapToEmployeeModel(employee);
+	}
+
+	public void updateEmployee(@Valid EmployeeModel employeeModel) {
+		employeeRepository.save(EmployeeMapper.mapToEmployee(employeeModel));
 
 	}
 
 	public void deleteEmployee(Integer employeeId) {
 		employeeRepository.deleteById(employeeId);
 	}
+
 }
