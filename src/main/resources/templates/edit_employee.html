@@ -44,21 +44,29 @@
 						<label class="form-label">Họ và tên</label> <input
 							class="form-control" id="fullName" name="fullName"
 							placeholder="Nhập họ tên" type="text" th:field="*{fullName}" />
+						<p th:if="${#fields.hasErrors('fullName')}" class="text-danger"
+							th:errors="*{fullName}"></p>
 					</div>
 					<div class="form-group mb-3">
 						<label class="form-label">Chức danh</label> <input
 							class="form-control" id="title" name="title"
 							placeholder="Nhập chức danh" type="text" th:field="*{title}" />
+						<p th:if="${#fields.hasErrors('title')}" class="text-danger"
+							th:errors="*{title}"></p>
 					</div>
 					<div class="form-group mb-3">
 						<label class="form-label">Email</label> <input
 							class="form-control" id="email" name="email"
 							placeholder="Nhập email" type="text" th:field="*{email}" />
+						<p th:if="${#fields.hasErrors('email')}" class="text-danger"
+							th:errors="*{email}"></p>
 					</div>
 					<div class="form-group mb-3">
 						<label class="form-label">Điện thoại</label> <input
 							class="form-control" id="telephone" name="telephone"
 							placeholder="Nhập điện thoại" type="text" th:field="*{telephone}" />
+						<p th:if="${#fields.hasErrors('telephone')}" class="text-danger"
+							th:errors="*{telephone}"></p>
 					</div>
 					<button class="btn btn-primary" type="submit">Submit</button>
 				</form>
