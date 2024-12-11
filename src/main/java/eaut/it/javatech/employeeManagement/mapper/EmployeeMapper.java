@@ -1,7 +1,7 @@
-package mapper;
+package eaut.it.javatech.employeeManagement.mapper;
 
+import eaut.it.javatech.employeeManagement.entity.Employee;
 import eaut.it.javatech.employeeManagement.model.EmployeeModel;
-import entity.Employee;
 
 public class EmployeeMapper {
 	public static EmployeeModel mapToEmployeeModel(Employee employee) {

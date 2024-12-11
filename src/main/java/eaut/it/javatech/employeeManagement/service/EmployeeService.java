@@ -4,10 +4,10 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import eaut.it.javatech.employeeManagement.entity.Employee;
+import eaut.it.javatech.employeeManagement.mapper.EmployeeMapper;
 import eaut.it.javatech.employeeManagement.model.EmployeeModel;
 import eaut.it.javatech.employeeManagement.repository.EmployeeRepository;
-import entity.Employee;
-import mapper.EmployeeMapper;
 
 @Service
 public class EmployeeService {
