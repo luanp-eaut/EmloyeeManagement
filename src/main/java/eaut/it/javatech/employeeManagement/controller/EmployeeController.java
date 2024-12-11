@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import eaut.it.javatech.employeeManagement.model.EmployeeModel;
 import eaut.it.javatech.employeeManagement.service.EmployeeService;
+import jakarta.validation.Valid;
 
 @Controller
 public class EmployeeController {
@@ -22,21 +24,26 @@ public class EmployeeController {
 
 	@GetMapping("/employees")
 	public String listEmployees(Model model) {
-		List<EmployeeModel> employees = employeeService.getAllEmployees();
-		model.addAttribute("employees", employees);
+		List<EmployeeModel> employeeModels = employeeService.getAllEmployees();
+		model.addAttribute("employees", employeeModels);
 		return "employees";
 	}
 
 	@GetMapping("/employees/new")
 	public String newEmployee(Model model) {
-		EmployeeModel employee = new EmployeeModel();
-		model.addAttribute("employee", employee);
+		EmployeeModel employeeModel = new EmployeeModel();
+		model.addAttribute("employee", employeeModel);
 		return "create_employee";
 	}
 
 	@PostMapping("/employees")
-	public String saveEmployee(@ModelAttribute("employee") EmployeeModel employee, Model model) {
-		employeeService.addEmployee(employee);
+	public String saveEmployee(@Valid @ModelAttribute("employee") EmployeeModel employee, BindingResult result,
+			Model model) {
+		if (result.hasErrors()) {
+			model.addAttribute("employee", employee);
+			return "create_employee";
+		}
+		employeeService.createEmployee(employee);
 		return "redirect:/employees";
 	}
 
@@ -48,22 +55,28 @@ public class EmployeeController {
 	}
 
 	@PostMapping("/employees/{employeeId}")
-	public String updateEmployee(@PathVariable("employeeId") Integer employeeId, EmployeeModel employee, Model model) {
-		employee.setId(employeeId);
-		employeeService.updateEmployee(employee);
+	public String updateEmployee(@PathVariable("employeeId") Integer employeeId,
+			@Valid @ModelAttribute("employee") EmployeeModel employeeModel, BindingResult result, Model model) {
+
+		if (result.hasErrors()) {
+			model.addAttribute("employee", employeeModel);
+			return "edit_employee";
+		}
+		employeeModel.setId(employeeId);
+		employeeService.updateEmployee(employeeModel);
 		return "redirect:/employees";
 	}
-	
+
 	@GetMapping("/employees/{employeeId}/delete")
 	public String deleteEmployee(@PathVariable("employeeId") Integer employeeId) {
 		employeeService.deleteEmployee(employeeId);
 		return "redirect:/employees";
 	}
-	
+
 	@GetMapping("/employees/{employeeId}/view")
 	public String viewEmployee(@PathVariable("employeeId") Integer employeeId, Model model) {
-		EmployeeModel employee = employeeService.getEmployeeById(employeeId);
-		model.addAttribute("employee", employee);
+		EmployeeModel employeeModel = employeeService.getEmployeeById(employeeId);
+		model.addAttribute("employee", employeeModel);
 		return "view_employee";
 	}
 }

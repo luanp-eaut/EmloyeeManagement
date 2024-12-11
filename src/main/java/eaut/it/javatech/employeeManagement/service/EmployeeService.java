@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import eaut.it.javatech.employeeManagement.model.EmployeeModel;
 import eaut.it.javatech.employeeManagement.repository.EmployeeRepository;
 import entity.Employee;
-import jakarta.validation.Valid;
 import mapper.EmployeeMapper;
 
 @Service
@@ -34,7 +33,7 @@ public class EmployeeService {
 		return EmployeeMapper.mapToEmployeeModel(employee);
 	}
 
-	public void updateEmployee(@Valid EmployeeModel employeeModel) {
+	public void updateEmployee(EmployeeModel employeeModel) {
 		employeeRepository.save(EmployeeMapper.mapToEmployee(employeeModel));
 
 	}
