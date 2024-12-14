@@ -86,4 +86,9 @@ public class EmployeeController {
 		model.addAttribute("employee", employeeModel);
 		return "view_employee";
 	}
+	
+	@GetMapping("/login")
+    public String login(){
+        return "login";
+    }
 }

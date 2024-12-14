@@ -13,7 +13,7 @@
 
 	<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
 		<div class="container">
-			<a class="navbar-brand" href="#">Phần mềm quản lý nhân sự</a>
+			<a class="navbar-brand" th:href="@{/employees}">Phần mềm quản lý nhân sự</a>
 			<button class="navbar-toggler" type="button" data-toggle="collapse"
 				data-target="#navbarSupportedContent"
 				aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -22,10 +22,13 @@
 			</button>
 
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<ul class="navbar-nav mr-auto">
+				<ul class="navbar-nav mr-auto w-100">
 					<li class="nav-item"><a class="nav-link"
 						th:href="@{/employees/new}">Thêm nhân viên</a></li>
-
+					<li sec:authorize="!isAuthenticated()" class="ms-auto"><a class="nav-link" th:href="@{/login}">Login</a>
+					</li>
+					<li sec:authorize="isAuthenticated()" class="ms-auto"><a class="nav-link" th:href="@{/logout}">Logout</a>
+					</li>
 				</ul>
 			</div>
 		</div>
@@ -57,7 +60,8 @@
 					<td th:text="${employee.title}"></td>
 					<td th:text="${employee.email}"></td>
 					<td th:text="${employee.telephone}"></td>
-					<td th:text="${employee.role == 'admin' ? 'Quản trị' : (employee.role == 'employee' ? 'Nhân viên' : 'Chưa phân quyền')}"></td>
+					<td
+						th:text="${employee.role == 'admin' ? 'Quản trị' : (employee.role == 'employee' ? 'Nhân viên' : 'Chưa phân quyền')}"></td>
 					<td><a class="btn btn-primary"
 						th:href="@{/employees/{employeeId}/edit(employeeId=${employee.id})}">Edit</a>
 						<a class="btn btn-danger"
