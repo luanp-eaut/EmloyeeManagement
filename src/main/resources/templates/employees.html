@@ -47,6 +47,7 @@
 					<th>Chức danh</th>
 					<th>Email</th>
 					<th>Điện thoại</th>
+					<th>Quyền</th>
 					<th>Actions</th>
 				</tr>
 			</thead>
@@ -56,6 +57,7 @@
 					<td th:text="${employee.title}"></td>
 					<td th:text="${employee.email}"></td>
 					<td th:text="${employee.telephone}"></td>
+					<td th:text="${employee.role == 'admin' ? 'Quản trị' : (employee.role == 'employee' ? 'Nhân viên' : 'Chưa phân quyền')}"></td>
 					<td><a class="btn btn-primary"
 						th:href="@{/employees/{employeeId}/edit(employeeId=${employee.id})}">Edit</a>
 						<a class="btn btn-danger"

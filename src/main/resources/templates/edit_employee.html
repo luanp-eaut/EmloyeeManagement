@@ -70,6 +70,16 @@
 						<p th:if="${#fields.hasErrors('telephone')}" class="text-danger"
 							th:errors="*{telephone}"></p>
 					</div>
+					<div class="form-group mb-3">
+						<label for="role" class="form-label">Phân quyền</label> <select
+							id="role" name="role" class="form-select">
+							<option selected value="" disabled>Chọn phân quyền</option>
+							<option value="admin">Quản trị</option>
+							<option value="employee">Nhân viên</option>
+						</select>
+						<p th:if="${#fields.hasErrors('role')}" class="text-danger"
+							th:errors="*{role}"></p>
+					</div>
 					<button class="btn btn-primary" type="submit">Submit</button>
 				</form>
 			</div>

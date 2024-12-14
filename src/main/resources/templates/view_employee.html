@@ -53,6 +53,9 @@
 						<p>
 							Điện thoại: <strong th:text="${employee.telephone}"></strong>
 						</p>
+						<p>
+							Quyền: <strong th:text="${employee.role == 'admin' ? 'Quản trị' : (employee.role == 'employee' ? 'Nhân viên' : 'Chưa phân quyền')}"></strong>
+						</p>
 					</div>
 				</div>
 			</div>
