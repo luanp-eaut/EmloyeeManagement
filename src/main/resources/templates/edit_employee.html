@@ -74,6 +74,13 @@
 							th:errors="*{telephone}"></p>
 					</div>
 					<div class="form-group mb-3">
+						<label class="form-label">Mật khẩu</label> <input
+							class="form-control" id="password" name="password"
+							placeholder="Nhập mật khẩu" type="password" th:field="*{password}" />
+						<p th:if="${#fields.hasErrors('password')}" class="text-danger"
+							th:errors="*{password}"></p>
+					</div>
+					<div class="form-group mb-3">
 						<label for="role" class="form-label">Phân quyền</label> <select
 							id="role" name="role" class="form-select" th:field="*{role}">
 							<option selected value="" disabled>Chọn phân quyền</option>

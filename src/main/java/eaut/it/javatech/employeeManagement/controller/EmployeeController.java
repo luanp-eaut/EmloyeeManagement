@@ -1,9 +1,15 @@
 package eaut.it.javatech.employeeManagement.controller;
 
+import java.util.Collection;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -43,14 +49,15 @@ public class EmployeeController {
 	}
 
 	@PostMapping("/employees")
-	public String saveEmployee(@Valid @ModelAttribute("employee") EmployeeModel employee, BindingResult result,
+	public String saveEmployee(@Valid @ModelAttribute("employee") EmployeeModel employeeModel, BindingResult result,
 			Model model) {
-		if (result.hasErrors()) {
+		checkConflict(employeeModel, result);
 
-			model.addAttribute("employee", employee);
+		if (result.hasErrors()) {
+			model.addAttribute("employee", employeeModel);
 			return "create_employee";
 		}
-		employeeService.createEmployee(employee);
+		employeeService.createEmployee(employeeModel);
 		return "redirect:/employees";
 	}
 
@@ -86,9 +93,23 @@ public class EmployeeController {
 		model.addAttribute("employee", employeeModel);
 		return "view_employee";
 	}
-	
+
 	@GetMapping("/login")
-    public String login(){
-        return "login";
-    }
+	public String login() {
+		return "login";
+	}
+	
+	@GetMapping("/disallowed")
+	public String disallowed() {
+		return "disallowed";
+	}
+
+	private void checkConflict(EmployeeModel employee, BindingResult result) {
+		if (employeeService.isEmailOccupied(employee.getEmail())) {
+			result.rejectValue("email", null, "Email đã được sử dụng");
+		}
+		if (employeeService.isTelephoneOccupied(employee.getTelephone())) {
+			result.rejectValue("telephone", null, "Số điện thoại đã được sử dụng");
+		}
+	}
 }

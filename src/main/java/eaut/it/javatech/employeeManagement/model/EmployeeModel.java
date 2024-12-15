@@ -20,6 +20,8 @@ public class EmployeeModel {
 	private String email;
 	@NotEmpty(message = "Hãy nhập điện thoại nhân viên")
 	private String telephone;
+	@NotEmpty(message = "Hãy nhập mật khẩu cho nhân viên")
+	private String password;
 	@NotEmpty(message = "Hãy chọn phân quyền cho nhân viên")
 	private String role;
 }
